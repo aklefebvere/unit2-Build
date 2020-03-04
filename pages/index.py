@@ -16,17 +16,15 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
         
-            ## Your Value Proposition
+            ## Build a car and find its predicted price!
 
-            Emphasize how the app will benefit users. Don't emphasize the underlying technology.
+            With this app, you can build your own car and find it's predicted price with the parameters you select.
 
-            ✅ RUN is a running app that adapts to your fitness levels and designs personalized workouts to help you improve your running.
-
-            ❌ RUN is the only intelligent running app that uses sophisticated deep neural net machine learning to make your run smarter because we believe in ML driven workouts.
+            This app is not 100% accurate with its predicted price but it is very close to how much it would actually cost in the real world. More information on how accurate it is in the process tab.
 
             """
         ),
-        dcc.Link(dbc.Button('Your Call To Action', color='primary'), href='/predictions')
+        dcc.Link(dbc.Button('Build your car!', color='primary'), href='/predictions')
     ],
     md=4,
 )
