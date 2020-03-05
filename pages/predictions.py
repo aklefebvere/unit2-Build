@@ -86,7 +86,7 @@ column1 = dbc.Col(
         html.Br(),
 
         dcc.Input(
-            id='year',
+            id='Year',
            value=2017,
            type='number',
            className='mb-4'
@@ -99,7 +99,7 @@ column1 = dbc.Col(
         html.Br(),
 
         dcc.Input(
-            id='mileage',
+            id='Mileage',
             value=19.10,
             type='number',
             className='mb-4'    
@@ -112,7 +112,7 @@ column1 = dbc.Col(
         html.Br(),
 
         dcc.Input(
-            id='engine',
+            id='Engine',
             value=1197.0,
             type='number',
             className='mb-4'    
@@ -125,7 +125,7 @@ column1 = dbc.Col(
         html.Br(),
 
         dcc.Input(
-            id='power',
+            id='Power_bhp',
             value=82.0,
             type='number',
             className='mb-4'    
@@ -133,12 +133,25 @@ column1 = dbc.Col(
 
         html.Br(),
         
+        html.Label('km Driven'),
+
+        html.Br(),
+
+        dcc.Input(
+            id='Kilometers_driven',
+            value=15029,
+            type='number',
+            className='mb-4'
+        ),
+
+        html.Br(),
+
         html.Label('Number of Seats'),
         dcc.Slider(
-            id='seats',
+            id='Seats',
             min=2,
             max=10,
-            value=2,
+            value=5,
             marks= {
                 2: {'label': '2 seats'},
                 3: {'label': '3'},
@@ -171,19 +184,20 @@ column2 = dbc.Col(
     [Input('Transmission', 'value'), 
      Input('Fuel_Type', 'value'),
      Input('Location', 'value'),
-     Input('year', 'value'),
-     Input('mileage', 'value'),
-     Input('engine', 'value'),
-     Input('power', 'value'),
-     Input('seats', 'value')]
+     Input('Year', 'value'),
+     Input('Mileage', 'value'),
+     Input('Engine', 'value'),
+     Input('Power_bhp', 'value'),
+     Input('Kilometers_driven', 'value'),
+     Input('Seats', 'value')]
 )
 
-def predict(Transmission, Fuel_Type, Location, year, mileage, engine, power, seats):
+def predict(Location, Year, Kilometers_driven, Fuel_Type, Transmission, Mileage, Engine, Power_bhp, Seats):
     df = pd.DataFrame(
-        columns=['Transmission', 'Fuel Type', 'Location', 'Year', 'Mileage', 'Engine', 'Power', 'Seats'],
-        data = [[Transmission, Fuel_Type, Location, year, mileage, engine, engine, power, seats]]
+        columns=['Location', 'Year', 'Kilometers_Driven', 'Fuel_Type', 'Transmission', 'Mileage', 'Engine', 'Power_bhp', 'Seats'],
+        data = [[Location, Year, Kilometers_driven, Fuel_Type, Transmission, Mileage, Engine, Power_bhp, Seats]]
     )
     y_pred = pipeline.predict(df)[0]
-    return f'$ {y_pred: .0f}'
+    return y_pred**8
 
 layout = dbc.Row([column1, column2])
