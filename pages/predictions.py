@@ -170,34 +170,31 @@ column1 = dbc.Col(
 
 column2 = dbc.Col(
     [
-        dcc.Markdown(
-            # html.H2('Expected cost', className='mb-5'),
-            html.Div('prediction-content', className='lead')
-        )
+            html.H2('Predicted Price', className='mb-5'),
+            html.Div(id='prediction-content', className='lead')   
     ],
     md=4
 )
 
-
 @app.callback(
     Output('prediction-content', 'children'),
-    [Input('Transmission', 'value'), 
-     Input('Fuel_Type', 'value'),
-     Input('Location', 'value'),
+    [Input('Location', 'value'), 
      Input('Year', 'value'),
+     Input('Kilometers_driven', 'value'),
+     Input('Fuel_Type', 'value'),
+     Input('Transmission', 'value'),
      Input('Mileage', 'value'),
      Input('Engine', 'value'),
      Input('Power_bhp', 'value'),
-     Input('Kilometers_driven', 'value'),
      Input('Seats', 'value')]
 )
-
 def predict(Location, Year, Kilometers_driven, Fuel_Type, Transmission, Mileage, Engine, Power_bhp, Seats):
     df = pd.DataFrame(
         columns=['Location', 'Year', 'Kilometers_Driven', 'Fuel_Type', 'Transmission', 'Mileage', 'Engine', 'Power_bhp', 'Seats'],
         data = [[Location, Year, Kilometers_driven, Fuel_Type, Transmission, Mileage, Engine, Power_bhp, Seats]]
     )
     y_pred = pipeline.predict(df)[0]
-    return y_pred**8
+    
+    return y_pred**8, ' Lakh'
 
 layout = dbc.Row([column1, column2])

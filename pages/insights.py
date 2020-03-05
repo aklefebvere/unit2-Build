@@ -14,12 +14,20 @@ column1 = dbc.Col(
     [
         dcc.Markdown(
             """
-        
-            ## Insights
-
-
+            # Insights
+            We can see the importance of each feature in the model by looking at the permutation importance r^2 score:
             """
         ),
+
+        html.Img(src='assets/PI_graph.png', className='img-fluid'),
+
+        dcc.Markdown(
+            """
+            We can see here that the two most important features towards the model is the power of the car and the model year of the car. You may have also noticed that there are three features that have zero r^2 score. They have no importance
+            towards the model but it does affect the model when removed  do to potentially the noise it creates by just being in the dataset.
+            """
+        ),
+
 
     ],
 )

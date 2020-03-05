@@ -47,7 +47,7 @@ column1 = dbc.Col(
             and int/float columns must be numeric columns). Mileage, engine, and Power columns have their units assigned for each cell which must be removed so it can be a numeric column. All the cars that had the fuel type CNG, LPG, and electric
             were dropped from the dataset because it did not follow the mileage units that the majority of the dataset was using
 
-            Before I start implementing my dataset into a predictive model, I checked to see if there was any skewness in my target variable "Price".
+            Before I start implementing my dataset into a predictive model, I checked to see if there was a skew on my target variable "Price".
 
             Graph of target variable "Price":
             '''
@@ -57,9 +57,9 @@ column1 = dbc.Col(
 
         dcc.Markdown(
             '''
-            By the looks of it, there is skewness to the target variable
+            By the looks of it, there is skew on the target variable
 
-            We can remove this skewness by logging the target variable to minamize the outliers shown here:
+            We can remove this skew by taking the 8th root of the target values to minamize the outliers shown here:
             '''
 
         ),
@@ -68,7 +68,7 @@ column1 = dbc.Col(
 
         dcc.Markdown(
             '''
-            Now that the target variable is logged, we can now implement the dataset into predictive models.
+            Now that the target outliers are improved, we can now implement the dataset into predictive models.
 
             # Predictive Model Implementation
 
@@ -81,7 +81,10 @@ column1 = dbc.Col(
             '''
         ),
 
+        html.Img(src='assets/XGB_val.png', className='img-fluid'),
 
+        html.Br(),
+        html.Br(),
 
         dcc.Markdown(
             '''
@@ -89,7 +92,10 @@ column1 = dbc.Col(
             '''
         ),
 
+        html.Img(src='assets/XGB_test.png', className='img-fluid'),
 
+        html.Br(),
+        html.Br(),
 
         dcc.Markdown(
             '''
@@ -100,17 +106,30 @@ column1 = dbc.Col(
 
         html.Img(src='assets/pipeline.png', className='img-fluid'),
 
+        html.Br(),
+        html.Br(),
+
         dcc.Markdown(
             '''
             This is my validation accuracy once fitting my train dataset and calculating my validation r^2 score:
             '''
         ),
+        
+        html.Img(src='assets/RFR_val.png', className='img-fluid'),
+
+          html.Br(),
+          html.Br(),
 
         dcc.Markdown(
             '''
             This is my test accuracy once fitting my train dataset and calculating my test r^2 score:
             '''
         ),
+
+        html.Img(src='assets/RFR_test.png', className='img-fluid'),
+
+        html.Br(),
+        html.Br(),
 
         dcc.Markdown(
             '''
@@ -122,17 +141,29 @@ column1 = dbc.Col(
             '''     
         ),
 
+        html.Img(src='assets/LR_val.png', className='img-fluid'),
+
+        html.Br(),
+        html.Br(),
+
          dcc.Markdown(
             '''
             This is my test accuracy once fitting my train dataset and calculating my test r^2 score:
             '''
         ),
 
+        html.Img(src='assets/LR_test.png', className='img-fluid'),
+
+        html.Br(),
         html.Br(),
 
          dcc.Markdown(
             '''
-            By looking at all the test accuracys for each model, random forest regressor had the highest test accuracy so that is what I used for my predictive model.
+            ## What Predictive Model Did I Choose?
+
+            By looking at all the test accuracys for each model, XGBoost regressor has the highest test accuracy but I will be using the random forest regression model instead. The reason why I am selecting random forest over XGBoost is
+            because my random forest regressor model is in a pipeline and it would be much easier to work with. Random forest regressor is still a valid model to use since the test accuracys between XGBoost and random forest are not
+            significantly different.
             '''
         ), 
 
