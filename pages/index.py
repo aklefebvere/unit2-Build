@@ -18,9 +18,11 @@ column1 = dbc.Col(
         
             ## Build a car and find its predicted price!
 
-            With this app, you can build your own car and find it's predicted price with the parameters you select.
+             🚗 With this app, you can build your own car and find it's predicted price with the parameters you select.
 
-            This app is not 100% accurate with its predicted price but it is very close to how much it would actually cost in the real world. More information on how accurate it is in the process tab.
+             🚘 This app is for people that are interested in how much a car would cost if built and bought in India.
+
+             🏎️ Predictive prices are predicted with a random forest regression model that is built with an r^2 of above 90%. With this high of an r^2, the price will be very close to what the car would actually cost.
 
             """
         ),
@@ -32,12 +34,7 @@ column1 = dbc.Col(
 
 column2 = dbc.Col(
     [
-        dcc.Markdown(
-            '''
-            ok
-            '''
-            
-        )
+       html.Img(src='assets/car.png', className='img-fluid')
     ]
 )
 

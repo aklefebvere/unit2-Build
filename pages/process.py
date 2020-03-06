@@ -53,7 +53,7 @@ column1 = dbc.Col(
             '''
         ),
 
-        html.Img(src='assets/without_log.png', className='img-fluid'),
+        html.Img(src='assets/with_skew.png', className='img-fluid'),
 
         dcc.Markdown(
             '''
@@ -64,7 +64,7 @@ column1 = dbc.Col(
 
         ),
 
-        html.Img(src='assets/with_log.png', className='img-fluid'),
+        html.Img(src='assets/without_skew.png', className='img-fluid'),
 
         dcc.Markdown(
             '''
@@ -72,57 +72,58 @@ column1 = dbc.Col(
 
             # Predictive Model Implementation
 
-            ## XGBoost Regressor
-            For XGBoost Regressor, I used ordinal encoding to encode my categorical variables. Rather than using an imputer to replace my NaN values, I did it by hand to prevent any problems from happening when visualizing my model.
-            I also did not use a pipeline to create my model because XGBoost does not like being inside a pipeline.
+            ## Evaluation Metric
+            The evaluation metric I will be using is something called r^2 (also known as the coefficient of determination). R^2 explains the percent of explained variance of a predictive model. r^2 is between the values 0 and 100.
+            For this model, we are looking for a model that has a high r^2 so we can have a predicitve model that predicts prices very well. 
 
-            This is my validation accuracy once fitting my train dataset and predicting my validation r^2 score:
+            ## Linear Regression
+            For Linear regression, I fit my train onto the model and calculated my r^2 for my validation and test dataset. I used this linear regresson model as my baseline for my predictive model because the only metric I am using is r^2.
+            Using a model for a baseline is better than getting a baseline through the target mean. This is because the r^2 of the target mean is always going to equal 0.
 
+            This is my validation r^2 once fitting my train dataset:
             '''
         ),
 
-        html.Img(src='assets/XGB_val.png', className='img-fluid'),
+        html.Img(src='assets/LR_val.png', className='img-fluid'),
 
         html.Br(),
         html.Br(),
 
         dcc.Markdown(
             '''
-            This is my test accuracy once fitting my train and validation datasets combined and predicting my test score:
+            This is my test r^2 once fitting my train and validation combined dataset:
             '''
         ),
+        
+        html.Img(src='assets/LR_test.png', className='img-fluid'),
 
-        html.Img(src='assets/XGB_test.png', className='img-fluid'),
-
-        html.Br(),
-        html.Br(),
+          html.Br(),
+          html.Br(),
 
         dcc.Markdown(
             '''
-            ## Random Forest Regressor
+             ## Random Forest Regressor
             For random forest regressor, I used ordinal encoding and imputed every NaN value with its mean and implemented everything inside a pipeline including the random forest class.
-            '''
+            '''     
         ),
 
         html.Img(src='assets/pipeline.png', className='img-fluid'),
 
-        html.Br(),
-        html.Br(),
 
         dcc.Markdown(
             '''
-            This is my validation accuracy once fitting my train dataset and calculating my validation r^2 score:
+            This is my validation r^2 once fitting my train dataset:
             '''
         ),
-        
+
         html.Img(src='assets/RFR_val.png', className='img-fluid'),
 
-          html.Br(),
-          html.Br(),
+        html.Br(),
+        html.Br(),
 
-        dcc.Markdown(
+         dcc.Markdown(
             '''
-            This is my test accuracy once fitting my train dataset and calculating my test r^2 score:
+            This is my test r^2 once fitting my train and validation combined dataset:
             '''
         ),
 
@@ -131,39 +132,11 @@ column1 = dbc.Col(
         html.Br(),
         html.Br(),
 
-        dcc.Markdown(
-            '''
-            ## Linear Regression
-            For Linear regression, I fit my train onto the model and calculated my r^2 score for my validation and test dataset. I didn't do much with this because based on my previous scores from the other models, I can tell that this is
-            never going to beat my XGBoost regressor model or my random forest regressor model.
-
-            This is my validation accuracy once fitting my train dataset and calculating my validation r^2 score:
-            '''     
-        ),
-
-        html.Img(src='assets/LR_val.png', className='img-fluid'),
-
-        html.Br(),
-        html.Br(),
-
-         dcc.Markdown(
-            '''
-            This is my test accuracy once fitting my train dataset and calculating my test r^2 score:
-            '''
-        ),
-
-        html.Img(src='assets/LR_test.png', className='img-fluid'),
-
-        html.Br(),
-        html.Br(),
-
          dcc.Markdown(
             '''
             ## What Predictive Model Did I Choose?
 
-            By looking at all the test accuracys for each model, XGBoost regressor has the highest test accuracy but I will be using the random forest regression model instead. The reason why I am selecting random forest over XGBoost is
-            because my random forest regressor model is in a pipeline and it would be much easier to work with. Random forest regressor is still a valid model to use since the test accuracys between XGBoost and random forest are not
-            significantly different.
+            By looking at all the test r^2's, random forest regressor seems to be the best model to use to predict the price of cars in India. Random forest regressor beats the linear regression r^2 baseline by a large margin.
             '''
         ), 
 

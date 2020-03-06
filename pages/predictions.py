@@ -171,7 +171,15 @@ column1 = dbc.Col(
 column2 = dbc.Col(
     [
             html.H2('Predicted Price', className='mb-5'),
-            html.Div(id='prediction-content', className='lead')   
+            html.Div(id='prediction-content', className='lead'),
+
+            html.Br(),
+
+            html.Div(id='prediction-rupees', className='lead'),
+
+            html.Br(),
+
+            html.Div(id='prediction-usd', className='lead')
     ],
     md=4
 )
@@ -194,7 +202,66 @@ def predict(Location, Year, Kilometers_driven, Fuel_Type, Transmission, Mileage,
         data = [[Location, Year, Kilometers_driven, Fuel_Type, Transmission, Mileage, Engine, Power_bhp, Seats]]
     )
     y_pred = pipeline.predict(df)[0]
+
+    y_pred = y_pred**8
     
-    return y_pred**8, ' Lakh'
+    return (f'{y_pred:.01f} Lakh')
+
+
+
+@app.callback(
+    Output('prediction-rupees', 'children'),
+    [Input('Location', 'value'), 
+     Input('Year', 'value'),
+     Input('Kilometers_driven', 'value'),
+     Input('Fuel_Type', 'value'),
+     Input('Transmission', 'value'),
+     Input('Mileage', 'value'),
+     Input('Engine', 'value'),
+     Input('Power_bhp', 'value'),
+     Input('Seats', 'value')]
+)
+def INR(Location, Year, Kilometers_driven, Fuel_Type, Transmission, Mileage, Engine, Power_bhp, Seats):
+    df = pd.DataFrame(
+        columns=['Location', 'Year', 'Kilometers_Driven', 'Fuel_Type', 'Transmission', 'Mileage', 'Engine', 'Power_bhp', 'Seats'],
+        data = [[Location, Year, Kilometers_driven, Fuel_Type, Transmission, Mileage, Engine, Power_bhp, Seats]]
+    )
+    y_pred = pipeline.predict(df)[0]
+
+    y_pred = y_pred**8
+
+    y_pred = y_pred * 100000
+    
+    return (f'{y_pred:.01f} INR')
+
+
+
+@app.callback(
+    Output('prediction-usd', 'children'),
+    [Input('Location', 'value'), 
+     Input('Year', 'value'),
+     Input('Kilometers_driven', 'value'),
+     Input('Fuel_Type', 'value'),
+     Input('Transmission', 'value'),
+     Input('Mileage', 'value'),
+     Input('Engine', 'value'),
+     Input('Power_bhp', 'value'),
+     Input('Seats', 'value')]
+)
+def usd(Location, Year, Kilometers_driven, Fuel_Type, Transmission, Mileage, Engine, Power_bhp, Seats):
+    df = pd.DataFrame(
+        columns=['Location', 'Year', 'Kilometers_Driven', 'Fuel_Type', 'Transmission', 'Mileage', 'Engine', 'Power_bhp', 'Seats'],
+        data = [[Location, Year, Kilometers_driven, Fuel_Type, Transmission, Mileage, Engine, Power_bhp, Seats]]
+    )
+    y_pred = pipeline.predict(df)[0]
+
+    y_pred = y_pred**8
+
+    y_pred = y_pred * 100000
+
+    y_pred = y_pred * 0.013881
+    
+    return (f'${y_pred:.01f}')
+
 
 layout = dbc.Row([column1, column2])
