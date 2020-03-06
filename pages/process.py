@@ -45,7 +45,8 @@ column1 = dbc.Col(
             '''
             "Unnamed: 0" and "New_Price" columns needs to be dropped since it shows no relevency towards the data. In order for this to be used properly in a predictive model, all the columns must match their data type (Categorical columns must by objects
             and int/float columns must be numeric columns). Mileage, engine, and Power columns have their units assigned for each cell which must be removed so it can be a numeric column. All the cars that had the fuel type CNG, LPG, and electric
-            were dropped from the dataset because it did not follow the mileage units that the majority of the dataset was using
+            were dropped from the dataset because it did not follow the mileage units that the majority of the dataset was using. To avoid leakage, I removed the target variable price from all my datasets so there could be no possibility
+            for data leakage.
 
             Before I start implementing my dataset into a predictive model, I checked to see if there was a skew on my target variable "Price".
 
